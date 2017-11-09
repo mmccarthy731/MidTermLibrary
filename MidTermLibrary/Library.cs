@@ -12,14 +12,14 @@ namespace MidTermLibrary
         {
             Console.Write(prompt);
             string input = Console.ReadLine();
-            if (input.ToLower() != "m")
+            bool success = int.TryParse(input, out int num);
+            while (!success || num < 0 || num > books.Count)
             {
-                bool success = int.TryParse(input, out int num);
-                while (!success || num < 1 || num > books.Count)
-                {
-                    Console.Write($"\nInvalid input. Please enter a book number (Enter book ID# (1 - {books.Count}) or \"M\" to return to the Main Menu): ");
-                    success = int.TryParse(Console.ReadLine(), out num);
-                }
+                Console.Write($"\nInvalid input. Please enter a book number (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ");
+                success = int.TryParse(Console.ReadLine(), out num);
+            }
+            if (num != 0)
+            {
                 int index = num - 1;
                 if (books[index].Status == StatusEnum.CheckedOut)
                 {
@@ -27,7 +27,7 @@ namespace MidTermLibrary
                 }
                 else
                 {
-                    if (Program.GetYesOrNo($"\nYou have selected {books[index].Name}. Would you like to check out this book? (Y or N): "))
+                    if (Validator.GetYesOrNo($"\nYou have selected {books[index].Name}. Would you like to check out this book? (Y or N): "))
                     {
                         books[index].Status = StatusEnum.CheckedOut;
                         books[index].DueDate = Book.GetDueDate();
@@ -51,14 +51,14 @@ namespace MidTermLibrary
         {
             Console.Write(prompt);
             string input = Console.ReadLine();
-            if (input.ToLower() != "m")
+            bool success = int.TryParse(input, out int num);
+            while (!success || num < 0 || num > books.Count)
             {
-                bool success = int.TryParse(input, out int num);
-                while (!success || num < 1 || num > books.Count)
-                {
-                    Console.Write($"\nInvalid input. Please enter the book ID# for your return (1 - {books.Count}): ");
-                    success = int.TryParse(Console.ReadLine(), out num);
-                }
+                Console.Write($"\nInvalid input. Please enter the book ID# for your return (1 - {books.Count}), or enter 0 to return to the main menu: ");
+                success = int.TryParse(Console.ReadLine(), out num);
+            }
+            if (num != 0)
+            {
                 int index = num - 1;
                 if (books[index].Status == StatusEnum.OnShelf)
                 {
@@ -66,13 +66,32 @@ namespace MidTermLibrary
                 }
                 else
                 {
-                    if (Program.GetYesOrNo($"\nWould you like to return {books[index].Name}? (Y or N): "))
+                    if (Validator.GetYesOrNo($"\nWould you like to return {books[index].Name}? (Y or N): "))
                     {
                         books[index].Status = StatusEnum.OnShelf;
                         books[index].DueDate = null;
                     }
                 }
             }
+        }
+
+        public static void DisplayMainMenu(List<string> menu)
+        {
+            foreach(string line in menu)
+            {
+                Console.WriteLine(line);
+            }
+            Console.WriteLine();
+        }
+
+        public static void AddDonatedBook(List<Book> books)
+        {
+            Console.Write("\nWhat is the name of the book? ");
+            string book = Console.ReadLine();
+            Console.Write($"\nWho is the author of {book}? ");
+            string author = Console.ReadLine();
+            books.Add(new Book(book, author, StatusEnum.OnShelf));
+            
         }
 
         public static void SearchByAuthor(string prompt, List<Book> books)
@@ -96,7 +115,7 @@ namespace MidTermLibrary
             }
             else
             {
-                CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or \"M\" to return to the Main Menu): ", books);
+                CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books);
             }
         }
 
@@ -121,7 +140,7 @@ namespace MidTermLibrary
             }
             else
             {
-                CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or \"M\" to return to the Main Menu): ", books);
+                CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books);
             }
         }
     }
