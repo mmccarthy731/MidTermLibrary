@@ -23,7 +23,7 @@ namespace MidTermLibrary
                 int index = num - 1;
                 if (books[index].Status == StatusEnum.CheckedOut)
                 {
-                    Console.WriteLine($"\nI am sorry, {books[index].Name} is checked out and is due back on {books[index].DueDate}.");
+                    Console.WriteLine($"\nWe're sorry, {books[index].Name} is checked out and is due back on {books[index].DueDate}.");
                 }
                 else
                 {
@@ -62,7 +62,7 @@ namespace MidTermLibrary
                 int index = num - 1;
                 if (books[index].Status == StatusEnum.OnShelf)
                 {
-                    Console.WriteLine($"\nSorry, our records indicate that our copy {books[index].Name} has not been checked out.");
+                    Console.WriteLine($"\nWe apologize, our records indicate that our copy {books[index].Name} has not been checked out.");
                 }
                 else
                 {

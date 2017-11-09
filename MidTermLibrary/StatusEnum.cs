@@ -8,6 +8,6 @@ namespace MidTermLibrary
 {
     public enum StatusEnum
     {
-        OnShelf, CheckedOut
+        OnShelf, CheckedOut,
     }
 }

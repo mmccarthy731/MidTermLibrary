@@ -55,7 +55,7 @@ namespace MidTermLibrary
 
         public override string ToString()
         {
-            return $"{Name,-35}{Author,-25}{Status,-10}{DueDate, 15}";
+            return $"{Name,-35}{Author,-25}{Status,-10}{DueDate,15}";
         }
     }
 }
