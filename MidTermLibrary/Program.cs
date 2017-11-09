@@ -12,6 +12,14 @@ namespace MidTermLibrary
         {
             Console.WriteLine("Weclome to the Midterm Library.");
             List<Book> books = new List<Book>();
+            List<string> menuOptions = new List<string>();
+
+            menuOptions.Add("1. View all books");
+            menuOptions.Add("2. Search for a book by author");
+            menuOptions.Add("3. Search for a book by keyword");
+            menuOptions.Add("4. Return a checked-out book");
+            menuOptions.Add("5. Donate a book to the Library");
+            menuOptions.Add("6. Leave Library");
 
             books.Add(new Book("The Odyssey", "Homer", StatusEnum.OnShelf));
             books.Add(new Book("1984", "George Orwell", StatusEnum.OnShelf));
@@ -71,36 +79,12 @@ namespace MidTermLibrary
                     Console.WriteLine("\nInvalid input.\n");
                     keepReading = true;
                 }
+                Console.WriteLine("\nMain Menu:\n");
+                Library.DisplayMainMenu(menuOptions);
+                keepReading = Validator.GetUserChoice("Please select an option from the list above: ", menuOptions, books);
             }
             Console.WriteLine("\nGoodbye!");
             Console.ReadLine();
-        }
-
-        public static bool GetYesOrNo(string prompt)
-        {
-            bool doAgain = false;
-            bool valid = false;
-            while (!valid)
-            {
-                Console.Write(prompt);
-                string input = Console.ReadLine().ToLower();
-                if (input == "y" || input == "yes")
-                {
-                    doAgain = true;
-                    valid = true;
-                }
-                else if (input == "n" || input == "no")
-                {
-                    doAgain = false;
-                    valid = true;
-                }
-                else
-                {
-                    Console.Write("Invalid input. ");
-                    valid = false;
-                }
-            }
-            return doAgain;
         }
     }
 }

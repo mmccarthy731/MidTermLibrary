@@ -66,15 +66,15 @@ namespace MidTermLibrary
             //Garbage code
             //Console.WriteLine("Please write books in format as follows: " + book.ToString());
 
+            Console.WriteLine("Begin entering in entries.");
+            Console.WriteLine("\nType \"save\" if you wish to save and stop adding book entries.\nType \"reset\" if you wish to reset current record of books");
+
+            //Loop through making entries until the user decides to quit
             while (true)
             {
                 try
                 {
-                    //Loop through making entries until the user decides to quit
-                    Console.WriteLine("Begin entering in entries.");
-                    Console.WriteLine("\nType \"save\" if you wish to save and stop adding book entries. Type \"reset\" if you wish to reset current record of books");
                     string input = Console.ReadLine();
-
 
                     //TODO: Validation for input length?
                     //if (input.Length > Book.ToString().Length)
