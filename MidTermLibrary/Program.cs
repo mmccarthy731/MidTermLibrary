@@ -40,45 +40,6 @@ namespace MidTermLibrary
             bool keepReading = true;
             while (keepReading)
             {
-                Console.WriteLine("\nMain Menu:\n\n1. View all books\n2. Search for a book by author\n3. Search for a book by keyword\n4. Return a checked-out book\n5. Add a book to the text log of books.\n6. Leave library\n");
-                Console.Write("Please select an option from the list above: ");
-                string input = Console.ReadLine();
-                if (input == "1") // Display all books
-                {
-                    Library.DisplayBooks(books);
-                    Library.CheckoutBook($"\nWhich book would you like to select? (Enter 1 - {books.Count} or \"M\" to return to the Main Menu): ", books);
-                    keepReading = true;
-                }
-                else if (input == "2") //Search by Author
-                {
-                    Library.SearchByAuthor("\nPlease enter the author's name (first, last or both): ", books);
-                    keepReading = true;
-                }
-                else if (input == "3") //Search by Keyword
-                {
-                    Library.SearchByKeyword("\nPlease enter a keyword to search by: ", books);
-                    keepReading = true;
-                }
-                else if (input == "4") //Return books
-                {
-                    Library.DisplayBooks(books);
-                    Library.ReturnBook($"\nPlease enter the book ID# for your return (1 - {books.Count}) or \"M\" to return to the Main Menu): ", books);
-                    keepReading = true;
-                }
-                else if (input == "5")
-                {
-                    Console.WriteLine("Add a book to the text log of books.");
-                    TextEdit.WriteBookToFile(books);
-                }
-                else if (input == "6") //Exit Program
-                {
-                    keepReading = false;
-                }
-                else
-                {
-                    Console.WriteLine("\nInvalid input.\n");
-                    keepReading = true;
-                }
                 Console.WriteLine("\nMain Menu:\n");
                 Library.DisplayMainMenu(menuOptions);
                 keepReading = Validator.GetUserChoice("Please select an option from the list above: ", menuOptions, books);
