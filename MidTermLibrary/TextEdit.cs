@@ -10,7 +10,8 @@ namespace MidTermLibrary
     class TextEdit
     {
 
-        private const string FILENAME = "library.txt";
+        public const string FILENAME = "library.txt";
+        public const string MENUFILE = "menu.txt";
         private static StreamReader readFromFILENAME;
         private static StreamWriter writeTOFILENAME;
 
@@ -19,7 +20,6 @@ namespace MidTermLibrary
         {
             List<Book> books = new List<Book>();
 
-            Console.WriteLine("\nViewing entire library...");
             readFromFILENAME = new StreamReader(FILENAME);
 
             while (true)
@@ -57,6 +57,42 @@ namespace MidTermLibrary
 
             CloseReadStream(readFromFILENAME);
             return books;
+        }
+
+        public static List<string> ReadMenu(string MENUFILE)
+        {
+            readFromFILENAME = new StreamReader(MENUFILE);
+
+            List<string> menu = new List<string>();
+
+            while (true)
+            {
+                string line = readFromFILENAME.ReadLine();
+
+                if (line == null || line == "")
+                {
+                    break;
+                }
+
+                string menuOption = line;
+                menu.Add(menuOption);
+            }
+
+            readFromFILENAME.Close();
+            return menu;
+        }
+
+        public static void WriteMenu(List<string> menu)
+        {
+            writeTOFILENAME = new StreamWriter(MENUFILE, false);
+
+            foreach (string s in menu)
+            {
+                writeTOFILENAME.WriteLine(s);
+            }
+
+            writeTOFILENAME.Close();
+
         }
 
         public static void StoreBooksToFile(List<Book> books)
