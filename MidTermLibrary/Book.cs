@@ -32,6 +32,14 @@ namespace MidTermLibrary
             set { status = value; }
         }
 
+        private string dueDate;
+
+        public string DueDate
+        {
+            get { return dueDate; }
+            set { dueDate = value; }
+        }
+
         public Book(string name, string author, StatusEnum status)
         {
             this.name = name;
@@ -39,9 +47,15 @@ namespace MidTermLibrary
             this.status = status;
         }
 
+        public static string GetDueDate()
+        {
+            DateTime checkoutDate = DateTime.Today;
+            return checkoutDate.AddDays(14).ToShortDateString();
+        }
+
         public override string ToString()
         {
-            return $"{Name,-35}{Author,-25}{Status,-10}";
+            return $"{Name,-35}{Author,-25}{Status,-10}{DueDate, 15}";
         }
     }
 }
