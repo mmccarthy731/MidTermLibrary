@@ -12,7 +12,7 @@ namespace MidTermLibrary
         private string author;
         private StatusEnum status;
         private string dueDate;
-        private char[] rating;
+        private double avgRating;
 
         public string Name
         {
@@ -38,19 +38,22 @@ namespace MidTermLibrary
             set { dueDate = value; }
         }
 
-        public char[] Rating
+        public double AvgRating
         {
-            get { return rating; }
-            set { rating = value; }
+            get { return avgRating; }
+            set { avgRating = value; }
         }
 
-        public Book(string name, string author, StatusEnum status, string dueDate, char[] rating)
+        private static int totalScore = 0;
+        private static int numberOfRatings = 0;
+
+        public Book(string name, string author, StatusEnum status, string dueDate, double avgRating)
         {
             this.name = name;
             this.author = author;
             this.status = status;
             this.dueDate = dueDate;
-            this.rating = rating;
+            this.avgRating = avgRating;
         }
 
         public static string GetDueDate()
@@ -59,10 +62,24 @@ namespace MidTermLibrary
             return checkoutDate.AddDays(14).ToShortDateString();
         }
 
+        public static double GetBookRating()
+        {
+            Console.Write("\nHow many stars would you rate this book? (0 - 5): ");
+            string input = Console.ReadLine();
+            bool success = int.TryParse(input, out int rating);
+            while (!success || rating < 0 || rating > 5)
+            {
+                Console.Write("\nInvalid input. Please enter a rating between 0 and 5: ");
+                success = int.TryParse(Console.ReadLine(), out rating);
+            }
+            totalScore += rating;
+            numberOfRatings++;
+            return (double)totalScore / numberOfRatings;
+        }
 
         public override string ToString()
         {
-            return $"{Name,-35}{Author,-25}{Status,-10}{DueDate,15}{Rating,10}";
+            return $"{Name,-35}{Author,-25}{Status,-10}{DueDate,15}{Validator.ConvertToStars(AvgRating),15}";
         }
     }
 }

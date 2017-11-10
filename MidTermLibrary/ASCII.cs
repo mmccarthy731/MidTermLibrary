@@ -26,17 +26,6 @@ namespace MidTermLibrary
                     //Don't display any garbage input 
                     Console.Clear();
                     //Console.WriteLine("✰★");
-                    //Console.WriteLine(Encoding.GetEncoding("✰★"));
-                    byte[] bytes = File.ReadAllBytes("stars.txt");
-                    string stars = Encoding.Unicode.GetString(bytes);
-                    char star = '★';
-                    int s = star;
-                    string unicode = String.Format("★", (int)'★', (int)'★');
-                    Console.WriteLine(s);
-                    Console.WriteLine(unicode);
-                    File.WriteAllBytes("stars.txt", bytes);
-                    Console.WriteLine(stars);
-
 
                     Console.WriteLine(@"
                  __    __   ___ _        __  ___  ___ ___   ___      ______  ___       ______ __ __   ___      _     ____ ____  ____   ____ ____  __ __ 

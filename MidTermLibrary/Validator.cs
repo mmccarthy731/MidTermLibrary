@@ -8,56 +8,76 @@ namespace MidTermLibrary
 {
     class Validator
     {
+        public static string ConvertToStars(double rating)
+        {
+            if (rating < 0.5)
+            {
+                return "";
+            }
+            else if (rating < 1.5 && rating >= 0.5)
+            {
+                return "*";
+            }
+            else if (rating < 2.5 && rating >= 1.5)
+            {
+                return "**";
+            }
+            else if (rating < 3.5 && rating >= 2.5)
+            {
+                return "***";
+            }
+            else if (rating < 4.5 && rating >= 3.5)
+            {
+                return "****";
+            }
+            else
+            {
+                return "*****";
+            }
+        }
+
         public static bool GetUserChoice(string prompt, List<string> menuOptions, List<Book> books)
         {
+            bool result = true;
             Console.Write(prompt);
             string input = Console.ReadLine();
             bool success = int.TryParse(input, out int selection);
-            while (!success || selection < 0 || selection > menuOptions.Count)
+            while (!success || selection < 1 || selection > menuOptions.Count)
             {
                 Console.Write("\nInvalid input. " + prompt);
                 success = int.TryParse(Console.ReadLine(), out selection);
             }
-            if (selection == 0)
+
+            switch (selection)
             {
-                return true;
+                case 1:
+                    Library.DisplayBooks(books);
+                    Library.CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books);
+                    break;
+                case 2:
+                    SearchOptions.SearchByAuthor("\nPlease enter the author's name (first, last or both): ", books);
+                    break;
+                case 3:
+                    SearchOptions.SearchByKeyword("\nPlease enter a keyword to search by: ", books);
+                    break;
+                case 4:
+                    SearchOptions.SearchByRating("\nPlease enter a minimum rating: (0 to 5 stars): ", books);
+                    break;
+                case 5:
+                    Library.DisplayCheckedOutBooks(books);
+                    Library.ReturnBook($"\nPlease enter the book ID# for your return or enter 0 to return to the Main Menu): ", books);
+                    break;
+                case 6:
+                    Library.AddDonatedBook(books);
+                    break;
+                case 7:
+                    result = false;
+                    break;
+                default:
+                    Console.WriteLine("\nInvalid input.\n");
+                    break;
             }
-            else if (selection == 1)
-            {
-                Library.DisplayBooks(books);
-                Library.CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books);
-                return true;
-            }
-            else if (selection == 2)
-            {
-                Library.SearchByAuthor("\nPlease enter the author's name (first, last or both): ", books);
-                return true;
-            }
-            else if (selection == 3)
-            {
-                Library.SearchByKeyword("\nPlease enter a keyword to search by: ", books);
-                return true;
-            }
-            else if (selection == 4)
-            {
-                Library.DisplayBooks(books);
-                Library.ReturnBook($"\nPlease enter the book ID# for your return (1 - {books.Count}) or 0 to return to the Main Menu): ", books);
-                return true;
-            }
-            else if (selection == 5)
-            {
-                Library.AddDonatedBook(books);
-                return true;
-            }
-            else if (selection == 6)
-            {
-                return false;
-            }
-            else
-            {
-                Console.WriteLine("\nInvalid input.\n");
-                return true;
-            }
+            return result;
         }
 
         public static bool GetYesOrNo(string prompt)
@@ -80,7 +100,7 @@ namespace MidTermLibrary
                 }
                 else
                 {
-                    Console.Write("Invalid input. ");
+                    Console.Write("\nInvalid input. ");
                     valid = false;
                 }
             }

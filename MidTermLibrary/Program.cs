@@ -10,10 +10,10 @@ namespace MidTermLibrary
     {
         static void Main(string[] args)
         {
-            //Display sweet ASCII art
+            Console.WriteLine("Wait for it...");
             ASCII.DisplayASCII();
-
-            List<string> menuOptions = TextEdit.ReadMenu("menu.txt");
+            List<string> menuOptions = new List<string>();
+            Library.GetMainMenu(menuOptions);
             List<Book> books = TextEdit.ReadFile("library.txt");
 
             bool keepReading = true;
@@ -25,7 +25,6 @@ namespace MidTermLibrary
             }
 
             TextEdit.StoreBooksToFile(books);
-            TextEdit.WriteMenu(menuOptions);
             Console.WriteLine("\nGoodbye!");
 
         }
