@@ -10,54 +10,43 @@ namespace MidTermLibrary
     {
         public static bool GetUserChoice(string prompt, List<string> menuOptions, List<Book> books)
         {
+            bool result = true;
             Console.Write(prompt);
             string input = Console.ReadLine();
             bool success = int.TryParse(input, out int selection);
-            while (!success || selection < 0 || selection > menuOptions.Count)
+            while (!success || selection < 1 || selection > menuOptions.Count)
             {
                 Console.Write("\nInvalid input. " + prompt);
                 success = int.TryParse(Console.ReadLine(), out selection);
             }
-            if (selection == 0)
+
+            switch (selection)
             {
-                return true;
+                case 1:
+                    Library.DisplayBooks(books);
+                    Library.CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books);
+                    break;
+                case 2:
+                    Library.SearchByAuthor("\nPlease enter the author's name (first, last or both): ", books);
+                    break;
+                case 3:
+                    Library.SearchByKeyword("\nPlease enter a keyword to search by: ", books);
+                    break;
+                case 4:
+                    Library.DisplayBooks(books);
+                    Library.ReturnBook($"\nPlease enter the book ID# for your return (1 - {books.Count}) or 0 to return to the Main Menu): ", books);
+                    break;
+                case 5:
+                    Library.AddDonatedBook(books);
+                    break;
+                case 6:
+                    result = false;
+                    break;
+                default:
+                    Console.WriteLine("\nInvalid input.\n");
+                    break;
             }
-            else if (selection == 1)
-            {
-                Library.DisplayBooks(books);
-                Library.CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books);
-                return true;
-            }
-            else if (selection == 2)
-            {
-                Library.SearchByAuthor("\nPlease enter the author's name (first, last or both): ", books);
-                return true;
-            }
-            else if (selection == 3)
-            {
-                Library.SearchByKeyword("\nPlease enter a keyword to search by: ", books);
-                return true;
-            }
-            else if (selection == 4)
-            {
-                Library.DisplayBooks(books);
-                Library.ReturnBook($"\nPlease enter the book ID# for your return (1 - {books.Count}) or 0 to return to the Main Menu): ", books);
-                return true;
-            }
-            else if (selection == 5)
-            {
-                Library.AddDonatedBook(books);
-                return true;
-            }
-            else if (selection == 6)
-            {
-                return false;
-            }
-            else
-            {
-                Console.WriteLine("\nInvalid input.\n");
-                return true;
-            }
+            return result;
         }
 
         public static bool GetYesOrNo(string prompt)

@@ -10,7 +10,6 @@ namespace MidTermLibrary
     class TextEdit
     {
         public const string FILENAME = "library.txt";
-        public const string MENUFILE = "menu.txt";
         private static StreamReader readFromFILENAME;
         private static StreamWriter writeTOFILENAME;
 
@@ -19,10 +18,8 @@ namespace MidTermLibrary
         {
             List<Book> books = new List<Book>();
 
-
             if (!File.Exists(FILENAME))
-               {
-            
+            {
                 FileStream newfile = File.Create(FILENAME);
                 newfile.Close();
             }
@@ -62,45 +59,8 @@ namespace MidTermLibrary
                 books.Add(new Book(name, author, status, dueDate));
 
             }
-
-            CloseReadStream(readFromFILENAME);
-            return books;
-        }
-
-        public static List<string> ReadMenu(string MENUFILE)
-        {
-            readFromFILENAME = new StreamReader(MENUFILE);
-
-            List<string> menu = new List<string>();
-
-            while (true)
-            {
-                string line = readFromFILENAME.ReadLine();
-
-                if (line == null || line == "")
-                {
-                    break;
-                }
-
-                string menuOption = line;
-                menu.Add(menuOption);
-            }
-
             readFromFILENAME.Close();
-            return menu;
-        }
-
-        public static void WriteMenu(List<string> menu)
-        {
-            writeTOFILENAME = new StreamWriter(MENUFILE, false);
-
-            foreach (string s in menu)
-            {
-                writeTOFILENAME.WriteLine(s);
-            }
-
-            writeTOFILENAME.Close();
-
+            return books;
         }
 
         public static void StoreBooksToFile(List<Book> books)
@@ -113,21 +73,7 @@ namespace MidTermLibrary
                 writeTOFILENAME.WriteLine($"{book.Name}|{book.Author}|{(int)book.Status}|{book.DueDate}");
 
             }
-
             writeTOFILENAME.Close();
         }
-
-        //Close write stream
-        public static void CloseWriteStream(StreamWriter stream)
-        {
-            stream.Close();
-        }
-
-        //Close read stream
-        public static void CloseReadStream(StreamReader stream)
-        {
-            stream.Close();
-        }
-
     }
 }

@@ -8,6 +8,16 @@ namespace MidTermLibrary
 {
     class Library
     {
+        public static void AddDonatedBook(List<Book> books)
+        {
+            Console.Write("\nWhat is the name of the book? ");
+            string book = Console.ReadLine();
+            Console.Write($"\nWho is the author of {book}? ");
+            string author = Console.ReadLine();
+            books.Add(new Book(book, author, StatusEnum.OnShelf, null));
+
+        }
+
         public static void CheckoutBook(string prompt, List<Book> books)
         {
             Console.Write(prompt);
@@ -23,7 +33,7 @@ namespace MidTermLibrary
                 int index = num - 1;
                 if (books[index].Status == StatusEnum.CheckedOut)
                 {
-                    Console.WriteLine($"\nWe're sorry, {books[index].Name} is checked out and is due back on {books[index].DueDate}.");
+                    Console.WriteLine($"\nWe're sorry, {books[index].Name} is currently checked out and is due back on {books[index].DueDate}.");
                 }
                 else
                 {
@@ -45,6 +55,25 @@ namespace MidTermLibrary
             {
                 Console.WriteLine($"{(i + 1) + ":",-5}" + books[i].ToString());
             }
+        }
+
+        public static void DisplayMainMenu(List<string> menu)
+        {
+            foreach (string line in menu)
+            {
+                Console.WriteLine(line);
+            }
+            Console.WriteLine();
+        }
+
+        public static void GetMainMenu(List<string> menu)
+        {
+            menu.Add("1. View all books");
+            menu.Add("2. Search for a book by author");
+            menu.Add("3. Search for a book by keyword");
+            menu.Add("4. Return a checked-out book");
+            menu.Add("5. Donate a book to the library");
+            menu.Add("6. Leave library");
         }
 
         public static void ReturnBook(string prompt, List<Book> books)
@@ -73,25 +102,6 @@ namespace MidTermLibrary
                     }
                 }
             }
-        }
-
-        public static void DisplayMainMenu(List<string> menu)
-        {
-            foreach (string line in menu)
-            {
-                Console.WriteLine(line);
-            }
-            Console.WriteLine();
-        }
-
-        public static void AddDonatedBook(List<Book> books)
-        {
-            Console.Write("\nWhat is the name of the book? ");
-            string book = Console.ReadLine();
-            Console.Write($"\nWho is the author of {book}? ");
-            string author = Console.ReadLine();
-            books.Add(new Book(book, author, StatusEnum.OnShelf, null));
-
         }
 
         public static void SearchByAuthor(string prompt, List<Book> books)
