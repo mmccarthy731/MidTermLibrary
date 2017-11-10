@@ -14,8 +14,7 @@ namespace MidTermLibrary
             string book = Console.ReadLine();
             Console.Write($"\nWho is the author of {book}? ");
             string author = Console.ReadLine();
-            books.Add(new Book(book, author, StatusEnum.OnShelf, null));
-
+            books.Add(new Book(book, author, StatusEnum.OnShelf, null, 0));
         }
 
         public static void CheckoutBook(string prompt, List<Book> books)
@@ -49,11 +48,24 @@ namespace MidTermLibrary
 
         public static void DisplayBooks(List<Book> books)
         {
-            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}");
-            Console.WriteLine("==========================================================================================");
+            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}{"Rating", 15}");
+            Console.WriteLine("=========================================================================================================");
             for (int i = 0; i < books.Count; i++)
             {
                 Console.WriteLine($"{(i + 1) + ":",-5}" + books[i].ToString());
+            }
+        }
+
+        public static void DisplayCheckedOutBooks(List<Book> books)
+        {
+            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}{"Rating",15}");
+            Console.WriteLine("=========================================================================================================");
+            for(int i = 0; i < books.Count; i++)
+            {
+                if(books[i].Status == (StatusEnum)1)
+                {
+                    Console.WriteLine($"{(i + 1) + ":", -5}" + books[i].ToString());
+                }
             }
         }
 
@@ -71,9 +83,10 @@ namespace MidTermLibrary
             menu.Add("1. View all books");
             menu.Add("2. Search for a book by author");
             menu.Add("3. Search for a book by keyword");
-            menu.Add("4. Return a checked-out book");
-            menu.Add("5. Donate a book to the library");
-            menu.Add("6. Leave library");
+            menu.Add("4. Search for a book by rating");
+            menu.Add("5. Return a checked-out book");
+            menu.Add("6. Donate a book to the library");
+            menu.Add("7. Leave library");
         }
 
         public static void ReturnBook(string prompt, List<Book> books)
@@ -92,65 +105,22 @@ namespace MidTermLibrary
                 if (books[index].Status == StatusEnum.OnShelf)
                 {
                     Console.WriteLine($"\nWe apologize, our records indicate that our copy {books[index].Name} has not been checked out.");
+                    return;
                 }
                 else
                 {
-                    if (Validator.GetYesOrNo($"\nWould you like to return {books[index].Name}? (Y or N): "))
+                    Console.WriteLine();
+                    if (Validator.GetYesOrNo($"Would you like to return {books[index].Name}? (Y or N): "))
                     {
+                        Console.WriteLine();
+                        if(Validator.GetYesOrNo($"Would you like to rate {books[index].Name}? (Y or N): "))
+                        {
+                            books[index].AvgRating = Book.GetBookRating();
+                        }
                         books[index].Status = StatusEnum.OnShelf;
                         books[index].DueDate = null;
                     }
                 }
-            }
-        }
-
-        public static void SearchByAuthor(string prompt, List<Book> books)
-        {
-            Console.Write(prompt);
-            string input = Console.ReadLine().ToLower();
-            Console.WriteLine($"\n{"#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}");
-            Console.WriteLine("==========================================================================================");
-            int matches = 0;
-            for (int i = 0; i < books.Count; i++)
-            {
-                if (books[i].Author.ToLower().Contains(input))
-                {
-                    matches++;
-                    Console.WriteLine($"{(i + 1) + ":",-5}" + books[i].ToString());
-                }
-            }
-            if (matches == 0)
-            {
-                Console.WriteLine("We could not locate any books by the specified author.");
-            }
-            else
-            {
-                CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books);
-            }
-        }
-
-        public static void SearchByKeyword(string prompt, List<Book> books)
-        {
-            Console.Write(prompt);
-            string input = Console.ReadLine().ToLower();
-            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}");
-            Console.WriteLine("==========================================================================================");
-            int matches = 0;
-            for (int i = 0; i < books.Count; i++)
-            {
-                if (books[i].Name.ToLower().Contains(input))
-                {
-                    matches++;
-                    Console.WriteLine($"{(i + 1) + ":",-5}" + books[i].ToString());
-                }
-            }
-            if (matches == 0)
-            {
-                Console.WriteLine("None of our books contained the key word you searched.");
-            }
-            else
-            {
-                CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books);
             }
         }
     }
