@@ -11,16 +11,9 @@ namespace MidTermLibrary
         static void Main(string[] args)
         {
             Console.WriteLine("Weclome to the Midterm Library.");
-            List<string> menuOptions = new List<string>();
-
-            menuOptions.Add("1. View all books");
-            menuOptions.Add("2. Search for a book by author");
-            menuOptions.Add("3. Search for a book by keyword");
-            menuOptions.Add("4. Return a checked-out book");
-            menuOptions.Add("5. Donate a book to the Library");
-            menuOptions.Add("6. Leave Library");
-
+            List<string> menuOptions = TextEdit.ReadMenu("menu.txt");
             List<Book> books = TextEdit.ReadFile("library.txt");
+
             bool keepReading = true;
             while (keepReading)
             {
@@ -30,6 +23,7 @@ namespace MidTermLibrary
             }
 
             TextEdit.StoreBooksToFile(books);
+            TextEdit.WriteMenu(menuOptions);
             Console.WriteLine("\nGoodbye!");
             Console.ReadLine();
         }

@@ -18,7 +18,7 @@ namespace MidTermLibrary
                 Console.Write("\nInvalid input. " + prompt);
                 success = int.TryParse(Console.ReadLine(), out selection);
             }
-            if(selection == 0)
+            if (selection == 0)
             {
                 return true;
             }
