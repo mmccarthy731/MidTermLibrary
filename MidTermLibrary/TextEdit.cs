@@ -9,7 +9,7 @@ namespace MidTermLibrary
 {
     class TextEdit
     {
-        public const string FILENAME = "library.txt";
+        public const string FILENAME = "../../library.txt";
         private static StreamReader readFromFILENAME;
         private static StreamWriter writeTOFILENAME;
 

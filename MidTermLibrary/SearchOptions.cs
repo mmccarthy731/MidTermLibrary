@@ -72,6 +72,8 @@ namespace MidTermLibrary
                 Console.Write("Invalid input. Please select a rating between 0 and 5 stars: ");
                 success = int.TryParse(Console.ReadLine(), out rating);
             }
+            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}{"Rating",15}");
+            Console.WriteLine("=========================================================================================================");
             int matches = 0;
             for (int i = 0; i < books.Count; i++)
             {

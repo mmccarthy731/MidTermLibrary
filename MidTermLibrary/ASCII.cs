@@ -12,22 +12,9 @@ namespace MidTermLibrary
     {
         public static void DisplayASCII()
         {
-            while (true)
-            {
-                //Wait until the user presses enter
-                int enter = Console.Read();
-                if (enter != (int)ConsoleKey.Enter)
-                {
-                    continue;
-                }
-
-                else
-                {
-                    //Don't display any garbage input 
-                    Console.Clear();
-                    //Console.WriteLine("✰★");
-
-                    Console.WriteLine(@"
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine(@"
                  __    __   ___ _        __  ___  ___ ___   ___      ______  ___       ______ __ __   ___      _     ____ ____  ____   ____ ____  __ __ 
                 |  |__|  | /  _| |      /  ]/   \|   |   | /  _]    |      |/   \     |      |  |  | /  _]    | |   |    |    \|    \ /    |    \|  |  |
                 |  |  |  |/  [_| |     /  /|     | _   _ |/  [_     |      |     |    |      |  |  |/  [_     | |    |  ||  o  |  D  |  o  |  D  |  |  |
@@ -38,7 +25,7 @@ namespace MidTermLibrary
                                                                                                                                         
                 ");
 
-                    Console.WriteLine(@"                                                                                                                                                             
+            Console.WriteLine(@"                                                                                                                                                             
                                                                         ##%%#.                                                                                 
                                                                       ####%%#####%%(                                                                           
                                                                     #%#%%%%%%%%%%%%%%%##%%(                                                                    
@@ -89,10 +76,11 @@ namespace MidTermLibrary
                                                                             *%%##%%#**,**%%#%,                                                                 
                                                                                  .%%#######%                                                                   
                                                                                       /%&(      ");
-                    break;
-                }
 
-            }
+
+
+
+            Console.ReadKey();
         }
     }
 }

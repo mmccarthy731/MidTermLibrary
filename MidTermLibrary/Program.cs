@@ -14,7 +14,7 @@ namespace MidTermLibrary
             ASCII.DisplayASCII();
             List<string> menuOptions = new List<string>();
             Library.GetMainMenu(menuOptions);
-            List<Book> books = TextEdit.ReadFile("library.txt");
+            List<Book> books = TextEdit.ReadFile("../../library.txt");
 
             bool keepReading = true;
             while (keepReading)
@@ -26,10 +26,7 @@ namespace MidTermLibrary
 
             TextEdit.StoreBooksToFile(books);
             Console.WriteLine("\nGoodbye!");
-
         }
-
-
     }
 }
 
