@@ -49,12 +49,12 @@ namespace MidTermLibrary
 
                 string name = words[0];
                 string author = words[1];
-                //bool success = int.TryParse(words[2], out int index);
-                //if (!success)
-                //{
-                //    Console.WriteLine("Error in file format. Line contents: " + line);
-                //    break;
-                //}
+                bool success = int.TryParse(words[2], out int index);
+                if (!success)
+                {
+                    Console.WriteLine("Error in file format. Line contents: " + line);
+                    break;
+                }
 
                 StatusEnum status = (StatusEnum)index;
                 string dueDate = words[3];
