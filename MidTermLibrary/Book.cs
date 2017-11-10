@@ -9,6 +9,10 @@ namespace MidTermLibrary
     class Book
     {
         private string name;
+        private string author;
+        private StatusEnum status;
+        private string dueDate;
+        private char[] rating;
 
         public string Name
         {
@@ -16,15 +20,11 @@ namespace MidTermLibrary
             set { name = value; }
         }
 
-        private string author;
-
         public string Author
         {
             get { return author; }
             set { author = value; }
         }
-
-        private StatusEnum status;
 
         public StatusEnum Status
         {
@@ -32,20 +32,25 @@ namespace MidTermLibrary
             set { status = value; }
         }
 
-        private string dueDate;
-
         public string DueDate
         {
             get { return dueDate; }
             set { dueDate = value; }
         }
 
-        public Book(string name, string author, StatusEnum status, string dueDate)
+        public char[] Rating
+        {
+            get { return rating; }
+            set { rating = value; }
+        }
+
+        public Book(string name, string author, StatusEnum status, string dueDate, char[] rating)
         {
             this.name = name;
             this.author = author;
             this.status = status;
             this.dueDate = dueDate;
+            this.rating = rating;
         }
 
         public static string GetDueDate()
@@ -54,9 +59,10 @@ namespace MidTermLibrary
             return checkoutDate.AddDays(14).ToShortDateString();
         }
 
+
         public override string ToString()
         {
-            return $"{Name,-35}{Author,-25}{Status,-10}{DueDate,15}";
+            return $"{Name,-35}{Author,-25}{Status,-10}{DueDate,15}{Rating,10}";
         }
     }
 }

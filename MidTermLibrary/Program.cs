@@ -10,7 +10,9 @@ namespace MidTermLibrary
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Weclome to the Midterm Library.");
+            //Display sweet ASCII art
+            ASCII.DisplayASCII();
+
             List<string> menuOptions = TextEdit.ReadMenu("menu.txt");
             List<Book> books = TextEdit.ReadFile("library.txt");
 
@@ -25,7 +27,10 @@ namespace MidTermLibrary
             TextEdit.StoreBooksToFile(books);
             TextEdit.WriteMenu(menuOptions);
             Console.WriteLine("\nGoodbye!");
-            Console.ReadLine();
+
         }
+
+
     }
 }
+

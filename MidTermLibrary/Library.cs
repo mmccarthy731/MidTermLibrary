@@ -8,6 +8,7 @@ namespace MidTermLibrary
 {
     class Library
     {
+
         public static void CheckoutBook(string prompt, List<Book> books)
         {
             Console.Write(prompt);
@@ -39,7 +40,7 @@ namespace MidTermLibrary
 
         public static void DisplayBooks(List<Book> books)
         {
-            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}");
+            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}{"Rating",10}");
             Console.WriteLine("==========================================================================================");
             for (int i = 0; i < books.Count; i++)
             {
@@ -84,13 +85,17 @@ namespace MidTermLibrary
             Console.WriteLine();
         }
 
+        //TODO: Int or Char[] for rating
         public static void AddDonatedBook(List<Book> books)
         {
             Console.Write("\nWhat is the name of the book? ");
             string book = Console.ReadLine();
             Console.Write($"\nWho is the author of {book}? ");
             string author = Console.ReadLine();
-            books.Add(new Book(book, author, StatusEnum.OnShelf, null));
+            Console.Write($"\nWould you like to rate the book? Type 1-5 to give it ★ rating.");
+            string rate = Console.ReadLine();
+            bool rateSuccess = int.TryParse(rate, out int rating);
+            //books.Add(new Book(book, author, StatusEnum.OnShelf, null, rating));
 
         }
 
@@ -137,6 +142,39 @@ namespace MidTermLibrary
             if (matches == 0)
             {
                 Console.WriteLine("None of our books contained the key word you searched.");
+            }
+            else
+            {
+                CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books);
+            }
+        }
+
+        //TODO: Check and implement this method
+        public static void SearchByRating(string prompt, List<Book> books)
+        {
+            Console.Write(prompt);
+            string input = Console.ReadLine();
+            bool success = int.TryParse(input, out int rating);
+
+            while (!success || rating > 5 || rating < 0)
+            {
+                Console.WriteLine("Rating must be of a numeric value 1-5 ★");
+            }
+            Console.WriteLine($"\n{"#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}{"Rating",10}");
+            Console.WriteLine("==========================================================================================");
+            int matches = 0;
+            for (int i = 0; i < books.Count; i++)
+            {
+                //    if (books[i].Rating == rating)
+                //    {
+                //        matches++;
+                //        Console.WriteLine($"{(i + 1) + ":",-5}" + books[i].ToString());
+                //    }
+            }
+
+            if (matches == 0)
+            {
+                Console.WriteLine("We could not locate any books by the specified rating.");
             }
             else
             {

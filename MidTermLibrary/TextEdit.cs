@@ -13,16 +13,16 @@ namespace MidTermLibrary
         public const string MENUFILE = "menu.txt";
         private static StreamReader readFromFILENAME;
         private static StreamWriter writeTOFILENAME;
+        //public string altcodes = "✰★";
 
         //Option to read entire file
         public static List<Book> ReadFile(string FILENAME)
         {
             List<Book> books = new List<Book>();
 
-
             if (!File.Exists(FILENAME))
-               {
-            
+            {
+
                 FileStream newfile = File.Create(FILENAME);
                 newfile.Close();
             }
@@ -41,7 +41,7 @@ namespace MidTermLibrary
 
                 string[] words = line.Split('|');
 
-                if (words.Length != 4)
+                if (words.Length != 5)
                 {
                     Console.WriteLine("Error in file format. Line contents: " + line);
                     break;
@@ -49,17 +49,19 @@ namespace MidTermLibrary
 
                 string name = words[0];
                 string author = words[1];
-                bool success = int.TryParse(words[2], out int index);
-                if (!success)
-                {
-                    Console.WriteLine("Error in file format. Line contents: " + line);
-                    break;
-                }
+                //bool success = int.TryParse(words[2], out int index);
+                //if (!success)
+                //{
+                //    Console.WriteLine("Error in file format. Line contents: " + line);
+                //    break;
+                //}
 
                 StatusEnum status = (StatusEnum)index;
                 string dueDate = words[3];
+                string rating = words[4];
+                char[] stars = rating.ToCharArray();
 
-                books.Add(new Book(name, author, status, dueDate));
+                //books.Add(new Book(name, author, status, dueDate, rating));
 
             }
 
@@ -110,7 +112,7 @@ namespace MidTermLibrary
 
             foreach (Book book in books)
             {
-                writeTOFILENAME.WriteLine($"{book.Name}|{book.Author}|{(int)book.Status}|{book.DueDate}");
+                writeTOFILENAME.WriteLine($"{book.Name}|{book.Author}|{(int)book.Status}|{book.DueDate}|{book.Rating}");
 
             }
 
