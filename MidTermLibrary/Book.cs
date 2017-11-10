@@ -40,11 +40,12 @@ namespace MidTermLibrary
             set { dueDate = value; }
         }
 
-        public Book(string name, string author, StatusEnum status)
+        public Book(string name, string author, StatusEnum status, string dueDate)
         {
             this.name = name;
             this.author = author;
             this.status = status;
+            this.dueDate = dueDate;
         }
 
         public static string GetDueDate()

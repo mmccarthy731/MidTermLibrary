@@ -11,7 +11,6 @@ namespace MidTermLibrary
         static void Main(string[] args)
         {
             Console.WriteLine("Weclome to the Midterm Library.");
-            List<Book> books = new List<Book>();
             List<string> menuOptions = new List<string>();
 
             menuOptions.Add("1. View all books");
@@ -21,22 +20,7 @@ namespace MidTermLibrary
             menuOptions.Add("5. Donate a book to the Library");
             menuOptions.Add("6. Leave Library");
 
-            books.Add(new Book("The Odyssey", "Homer", StatusEnum.OnShelf));
-            books.Add(new Book("1984", "George Orwell", StatusEnum.OnShelf));
-            books.Add(new Book("New Moon", "Stephenie Meyer", StatusEnum.OnShelf));
-            books.Add(new Book("Life of Pi", "Yann Martel", StatusEnum.OnShelf));
-            books.Add(new Book("Brave New World", "Aldous Huxley", StatusEnum.OnShelf));
-            books.Add(new Book("Breaking Dawn", "Stephenie Meyer", StatusEnum.OnShelf));
-            books.Add(new Book("The Time Traveler's Wife", "Audrey Niffenegger", StatusEnum.OnShelf));
-            books.Add(new Book("The Great Gatsby", "F. Scott Fitzgerald", StatusEnum.OnShelf));
-            books.Add(new Book("Game of Thrones", "George R.R. Martin", StatusEnum.OnShelf));
-            books.Add(new Book("The Iliad", "Homer", StatusEnum.OnShelf));
-            books.Add(new Book("The Scarlet Letter", "Nathaniel Hawthorne", StatusEnum.OnShelf));
-            books.Add(new Book("The Adventures of Tom Sawyer", "Mark Twain", StatusEnum.OnShelf));
-            books.Add(new Book("War and Peace", "Leo Tolstoy", StatusEnum.OnShelf));
-            books.Add(new Book("Macbeth", "William Shakespeare", StatusEnum.OnShelf));
-            books.Add(new Book("Romeo and Juliet", "William Shakespeare", StatusEnum.OnShelf));
-
+            List<Book> books = TextEdit.ReadFile("library.txt");
             bool keepReading = true;
             while (keepReading)
             {
@@ -44,6 +28,8 @@ namespace MidTermLibrary
                 Library.DisplayMainMenu(menuOptions);
                 keepReading = Validator.GetUserChoice("Please select an option from the list above: ", menuOptions, books);
             }
+
+            TextEdit.StoreBooksToFile(books);
             Console.WriteLine("\nGoodbye!");
             Console.ReadLine();
         }

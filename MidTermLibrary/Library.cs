@@ -77,7 +77,7 @@ namespace MidTermLibrary
 
         public static void DisplayMainMenu(List<string> menu)
         {
-            foreach(string line in menu)
+            foreach (string line in menu)
             {
                 Console.WriteLine(line);
             }
@@ -90,8 +90,8 @@ namespace MidTermLibrary
             string book = Console.ReadLine();
             Console.Write($"\nWho is the author of {book}? ");
             string author = Console.ReadLine();
-            books.Add(new Book(book, author, StatusEnum.OnShelf));
-            
+            books.Add(new Book(book, author, StatusEnum.OnShelf, null));
+
         }
 
         public static void SearchByAuthor(string prompt, List<Book> books)
