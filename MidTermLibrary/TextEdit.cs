@@ -9,7 +9,6 @@ namespace MidTermLibrary
 {
     class TextEdit
     {
-
         public const string FILENAME = "library.txt";
         public const string MENUFILE = "menu.txt";
         private static StreamReader readFromFILENAME;
