@@ -1,16 +1,16 @@
 The Odyssey|Homer|0||1
-1984|George Orwell|0||1
+1984|George Orwell|0||4
 New Moon|Stephenie Meyer|0||1
 Life of Pi|Yann Martel|0||1
-Brave New World|Aldous Huxley|0||1
+Brave New World|Aldous Huxley|0||2
 Breaking Dawn|Stephenie Meyer|0||1
 The Time Traveler's Wife|Audrey Niffenegger|0||1
 The Great Gatsby|F. Scott Fitzgerald|0||1
 Game of Thrones|George R.R. Martin|0||1
-The Iliad|Homer|0||1
-The Scarlet Letter|Nathaniel Hawthorne|0||1
+The Iliad|Homer|0||3.5
+The Scarlet Letter|Nathaniel Hawthorne|0||2
 The Adventures of Tom Sawyer|Mark Twain|0||1
 War and Peace|Leo Tolstoy|0||1
 Macbeth|William Shakespeare|0||1
-Romeo and Juliet|William Shakespeare|0||1
+Romeo and Juliet|William Shakespeare|0||2.66666666666667
 Lord of the Rings|J.R.R. Tolkien|0||1

@@ -44,9 +44,6 @@ namespace MidTermLibrary
             set { avgRating = value; }
         }
 
-        private static int totalScore = 0;
-        private static int numberOfRatings = 0;
-
         public Book(string name, string author, StatusEnum status, string dueDate, double avgRating)
         {
             this.name = name;
@@ -61,6 +58,9 @@ namespace MidTermLibrary
             DateTime checkoutDate = DateTime.Today;
             return checkoutDate.AddDays(14).ToShortDateString();
         }
+
+        private static int totalScore = 0;
+        private static int numberOfRatings = 0;
 
         public static double GetBookRating()
         {

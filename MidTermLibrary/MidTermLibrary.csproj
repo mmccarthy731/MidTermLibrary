@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\MidTermLibrary.csproj.CoreCompileInputs.cache" />
   </ItemGroup>
@@ -65,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\library.txt" />
+    <Content Include="library.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

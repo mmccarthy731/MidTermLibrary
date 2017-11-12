@@ -44,7 +44,7 @@ namespace MidTermLibrary
             bool success = int.TryParse(input, out int selection);
             while (!success || selection < 1 || selection > menuOptions.Count)
             {
-                Console.Write("\n\nInvalid input. " + prompt);
+                Console.Write("\nInvalid input. " + prompt);
                 success = int.TryParse(Console.ReadLine(), out selection);
             }
 
