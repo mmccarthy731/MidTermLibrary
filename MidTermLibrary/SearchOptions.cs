@@ -77,7 +77,7 @@ namespace MidTermLibrary
             int matches = 0;
             for (int i = 0; i < books.Count; i++)
             {
-                if (books[i].AvgRating >= rating - 0.5)
+                if (books[i].AvgRating >= (double)rating - 0.5)
                 {
                     matches++;
                     Console.WriteLine($"{(i + 1) + ":",-5}" + books[i].ToString());
