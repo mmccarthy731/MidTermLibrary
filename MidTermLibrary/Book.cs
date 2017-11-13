@@ -9,10 +9,6 @@ namespace MidTermLibrary
     class Book
     {
         private string name;
-        private string author;
-        private StatusEnum status;
-        private string dueDate;
-        private double avgRating;
 
         public string Name
         {
@@ -20,11 +16,15 @@ namespace MidTermLibrary
             set { name = value; }
         }
 
+        private string author;
+
         public string Author
         {
             get { return author; }
             set { author = value; }
         }
+
+        private StatusEnum status;
 
         public StatusEnum Status
         {
@@ -32,25 +32,47 @@ namespace MidTermLibrary
             set { status = value; }
         }
 
+        private string user;
+
+        public string User
+        {
+            get { return user; }
+            set { user = value; }
+        }
+
+        private string dueDate;
+
         public string DueDate
         {
             get { return dueDate; }
             set { dueDate = value; }
         }
 
-        public double AvgRating
+        private int totalScore;
+
+        public int TotalScore
         {
-            get { return avgRating; }
-            set { avgRating = value; }
+            get { return totalScore; }
+            set { totalScore = value; }
         }
 
-        public Book(string name, string author, StatusEnum status, string dueDate, double avgRating)
+        private int numberOfRatings;
+
+        public int NumberOfRatings
+        {
+            get { return numberOfRatings; }
+            set { numberOfRatings = value; }
+        }
+
+        public Book(string name, string author, StatusEnum status, string user, string dueDate, int totalScore, int numberOfRatings)
         {
             this.name = name;
             this.author = author;
             this.status = status;
+            this.user = user;
             this.dueDate = dueDate;
-            this.avgRating = avgRating;
+            this.totalScore = totalScore;
+            this.numberOfRatings = numberOfRatings;
         }
 
         public static string GetDueDate()
@@ -59,10 +81,7 @@ namespace MidTermLibrary
             return checkoutDate.AddDays(14).ToShortDateString();
         }
 
-        private static int totalScore = 0;
-        private static int numberOfRatings = 0;
-
-        public static double GetBookRating()
+        public static int GetBookRating()
         {
             Console.Write("\nHow many stars would you rate this book? (0 - 5): ");
             string input = Console.ReadLine();
@@ -72,14 +91,17 @@ namespace MidTermLibrary
                 Console.Write("\nInvalid input. Please enter a rating between 0 and 5: ");
                 success = int.TryParse(Console.ReadLine(), out rating);
             }
-            totalScore += rating;
-            numberOfRatings++;
+            return rating;
+        }
+
+        public static double GetAvgRating(int totalScore, int numberOfRatings)
+        {
             return (double)totalScore / numberOfRatings;
         }
 
         public override string ToString()
         {
-            return $"{Name,-35}{Author,-25}{Status,-10}{DueDate,15}{Validator.ConvertToStars(AvgRating),15}";
+            return $"{Name,-35}{Author,-25}{Status,-15}{User, -15}{DueDate,-15}{"",10}{Validator.ConvertToStars(GetAvgRating(totalScore, numberOfRatings)),-5}";
         }
     }
 }

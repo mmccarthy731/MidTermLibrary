@@ -53,6 +53,7 @@
     <Compile Include="SearchOptions.cs" />
     <Compile Include="StatusEnum.cs" />
     <Compile Include="TextEdit.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,8 +66,9 @@
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\library.txt" />
+    <Content Include="bin\Debug\MidTermLibrary.exe" />
     <Content Include="library.txt" />
+    <Content Include="users.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

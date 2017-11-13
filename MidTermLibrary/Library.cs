@@ -14,10 +14,10 @@ namespace MidTermLibrary
             string book = Console.ReadLine();
             Console.Write($"\nWho is the author of {book}? ");
             string author = Console.ReadLine();
-            books.Add(new Book(book, author, StatusEnum.OnShelf, null, 0));
+            books.Add(new Book(book, author, StatusEnum.OnShelf, null, null,0,0));
         }
 
-        public static void CheckoutBook(string prompt, List<Book> books)
+        public static void CheckoutBook(string prompt, List<Book> books, User user)
         {
             Console.Write(prompt);
             string input = Console.ReadLine();
@@ -38,9 +38,18 @@ namespace MidTermLibrary
                 {
                     if (Validator.GetYesOrNo($"\nYou have selected {books[index].Name}. Would you like to check out this book? (Y or N): "))
                     {
-                        books[index].Status = StatusEnum.CheckedOut;
-                        books[index].DueDate = Book.GetDueDate();
-                        Console.WriteLine($"\nThank you. Your book is due back on {books[index].DueDate}.");
+                        if (user.NumberOfBooks == 3)
+                        {
+                            Console.WriteLine("\nYou can only have 3 books checked out at a time. Please return a book before attemping to check out another.");
+                        }
+                        else
+                        {
+                            books[index].Status = StatusEnum.CheckedOut;
+                            books[index].DueDate = Book.GetDueDate();
+                            books[index].User = user.Name;
+                            user.NumberOfBooks++;
+                            Console.WriteLine($"\nThank you. Your book is due back on {books[index].DueDate}.");
+                        }
                     }
                 }
             }
@@ -48,21 +57,21 @@ namespace MidTermLibrary
 
         public static void DisplayBooks(List<Book> books)
         {
-            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}{"Rating",15}");
-            Console.WriteLine("=========================================================================================================");
+            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-15}{"User",-15}{"Due Date",-15}{"",10}{"Rating",-5}");
+            Console.WriteLine("==============================================================================================================================");
             for (int i = 0; i < books.Count; i++)
             {
                 Console.WriteLine($"{(i + 1) + ":",-5}" + books[i].ToString());
             }
         }
 
-        public static void DisplayCheckedOutBooks(List<Book> books)
+        public static void DisplayCheckedOutBooks(List<Book> books, User user)
         {
-            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}{"Rating",15}");
-            Console.WriteLine("=========================================================================================================");
+            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-15}{"User",-15}{"Due Date",-15}{"",10}{"Rating",-5}");
+            Console.WriteLine("==============================================================================================================================");
             for (int i = 0; i < books.Count; i++)
             {
-                if (books[i].Status == (StatusEnum)1)
+                if (books[i].Status == (StatusEnum)1 && books[i].User == user.Name)
                 {
                     Console.WriteLine($"{(i + 1) + ":",-5}" + books[i].ToString());
                 }
@@ -89,7 +98,7 @@ namespace MidTermLibrary
             menu.Add("7. Leave library");
         }
 
-        public static void ReturnBook(string prompt, List<Book> books)
+        public static void ReturnBook(string prompt, List<Book> books, User user)
         {
             Console.Write(prompt);
             string input = Console.ReadLine();
@@ -112,13 +121,24 @@ namespace MidTermLibrary
                     Console.WriteLine();
                     if (Validator.GetYesOrNo($"Would you like to return {books[index].Name}? (Y or N): "))
                     {
-                        Console.WriteLine();
-                        if (Validator.GetYesOrNo($"Would you like to rate {books[index].Name}? (Y or N): "))
+                        if (books[index].User == user.Name)
                         {
-                            books[index].AvgRating = Book.GetBookRating();
+                            Console.WriteLine();
+                            if (Validator.GetYesOrNo($"Would you like to rate {books[index].Name}? (Y or N): "))
+                            {
+                                books[index].TotalScore += Book.GetBookRating();
+                                books[index].NumberOfRatings++;
+
+                            }
+                            books[index].Status = StatusEnum.OnShelf;
+                            books[index].DueDate = null;
+                            books[index].User = null;
+                            user.NumberOfBooks--;
                         }
-                        books[index].Status = StatusEnum.OnShelf;
-                        books[index].DueDate = null;
+                        else
+                        {
+                            Console.WriteLine("\nSorry, our record show that the book you have selected was not checked out with your account");
+                        }
                     }
                 }
             }

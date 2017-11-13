@@ -9,22 +9,21 @@ namespace MidTermLibrary
 {
     class TextEdit
     {
-        public const string FILENAME = "../../library.txt";
         private static StreamReader readFromFILENAME;
-        private static StreamWriter writeTOFILENAME;
+        private static StreamWriter writeToFILENAME;
 
         //Option to read entire file
-        public static List<Book> ReadFile(string FILENAME)
+        public static List<Book> ReadLibrary(string FILENAME)
         {
             List<Book> books = new List<Book>();
 
-            if (!File.Exists(FILENAME))
-            {
-                FileStream newfile = File.Create(FILENAME);
-                newfile.Close();
-            }
-
-            // check file exists end .............
+            //if (!File.Exists(FILENAME))
+            //{
+            //    FileStream newfile = File.Create(FILENAME);
+            //    newfile.Close();
+            //}
+            //
+            //// check file exists end .............
             readFromFILENAME = new StreamReader(FILENAME);
 
             while (true)
@@ -38,7 +37,7 @@ namespace MidTermLibrary
 
                 string[] words = line.Split('|');
 
-                if (words.Length != 5)
+                if (words.Length != 7)
                 {
                     Console.WriteLine("Error in file format. Line contents: " + line);
                     break;
@@ -55,34 +54,103 @@ namespace MidTermLibrary
                     break;
                 }
                 StatusEnum status = (StatusEnum)index;
-                string dueDate = words[3];
 
-                bool success2 = double.TryParse(words[4], out double average);
-                if (!success)
+                string user = words[3];
+
+                string dueDate = words[4];
+
+                bool success3 = int.TryParse(words[5], out int total);
+                if(!success3)
                 {
                     Console.WriteLine("Error in file format. Line contents: " + line);
                     break;
                 }
-                double avgRating = average;
+                int totalScore = total;
 
-                books.Add(new Book(name, author, status, dueDate, avgRating));
+                bool success4 = int.TryParse(words[6], out int number);
+                if(!success4)
+                {
+                    Console.WriteLine("Error in file format. Line contents: " + line);
+                    break;
+                }
+                int numberOfRatings = number;
 
+                books.Add(new Book(name, author, status, user, dueDate, totalScore, numberOfRatings));
             }
             readFromFILENAME.Close();
             return books;
         }
 
-        public static void StoreBooksToFile(List<Book> books)
+        public static List<User> ReadUsers(string filename)
+        {
+            List<User> users = new List<User>();
+
+            readFromFILENAME = new StreamReader(filename);
+
+            while (true)
+            {
+                string line = readFromFILENAME.ReadLine();
+
+                if (line == null || line == "")
+                {
+                    break;
+                }
+
+                string[] words = line.Split('|');
+
+                if (words.Length != 3)
+                {
+                    Console.WriteLine("Error in file format. Line contents: " + line);
+                    break;
+                }
+
+                string name = words[0];
+
+                bool success = int.TryParse(words[1], out int pinNumber);
+                if (!success)
+                {
+                    Console.WriteLine("Error in file format. Line contents: " + line);
+                    break;
+                }
+                int pin = pinNumber;
+
+                bool success2 = int.TryParse(words[2], out int number);
+                if (!success2)
+                {
+                    Console.WriteLine("Error in file format. Line contents: " + line);
+                    break;
+                }
+                int numberOfBooks = number;
+
+                users.Add(new User(name, pin, numberOfBooks));
+            }
+            readFromFILENAME.Close();
+            return users;
+        }
+
+        public static void WriteLibrary(List<Book> books)
         {
             //Make a new write stream and append data
-            writeTOFILENAME = new StreamWriter(FILENAME, false);
+            writeToFILENAME = new StreamWriter("../../library.txt", false);
 
             foreach (Book book in books)
             {
-                writeTOFILENAME.WriteLine($"{book.Name}|{book.Author}|{(int)book.Status}|{book.DueDate}|{book.AvgRating}");
+                writeToFILENAME.WriteLine($"{book.Name}|{book.Author}|{(int)book.Status}|{book.User}|{book.DueDate}|{book.TotalScore}|{book.NumberOfRatings}");
             }
 
-            writeTOFILENAME.Close();
+            writeToFILENAME.Close();
+        }
+
+        public static void WriteUsers(List<User> users)
+        {
+            writeToFILENAME = new StreamWriter("../../users.txt", false);
+
+            foreach(User user in users)
+            {
+                writeToFILENAME.WriteLine($"{user.Name}|{user.Pin}|{user.NumberOfBooks}");
+            }
+
+            writeToFILENAME.Close();
         }
     }
 }

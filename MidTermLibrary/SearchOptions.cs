@@ -8,12 +8,12 @@ namespace MidTermLibrary
 {
     class SearchOptions
     {
-        public static void SearchByAuthor(string prompt, List<Book> books)
+        public static void SearchByAuthor(string prompt, List<Book> books, User user)
         {
             Console.Write(prompt);
             string input = Console.ReadLine().ToLower();
-            Console.WriteLine($"\n{"#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}{"Rating",15}");
-            Console.WriteLine("=========================================================================================================");
+            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-15}{"User",-15}{"Due Date",-15}{"",10}{"Rating",-5}");
+            Console.WriteLine("==============================================================================================================================");
             int matches = 0;
             for (int i = 0; i < books.Count; i++)
             {
@@ -29,16 +29,16 @@ namespace MidTermLibrary
             }
             else
             {
-                Library.CheckoutBook($"\nWhich book would you like to select? Enter book ID# or enter 0 to return to the Main Menu: ", books);
+                Library.CheckoutBook($"\nWhich book would you like to select? Enter book ID# or enter 0 to return to the Main Menu: ", books, user);
             }
         }
 
-        public static void SearchByKeyword(string prompt, List<Book> books)
+        public static void SearchByKeyword(string prompt, List<Book> books, User user)
         {
             Console.Write(prompt);
             string input = Console.ReadLine().ToLower();
-            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}{"Rating",15}");
-            Console.WriteLine("=========================================================================================================");
+            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-15}{"User",-15}{"Due Date",-15}{"",10}{"Rating",-5}");
+            Console.WriteLine("==============================================================================================================================");
             int matches = 0;
             for (int i = 0; i < books.Count; i++)
             {
@@ -58,11 +58,11 @@ namespace MidTermLibrary
             }
             else
             {
-                Library.CheckoutBook($"\nWhich book would you like to select? Enter book ID# or enter 0 to return to the Main Menu: ", books);
+                Library.CheckoutBook($"\nWhich book would you like to select? Enter book ID# or enter 0 to return to the Main Menu: ", books, user);
             }
         }
 
-        public static void SearchByRating(string prompt, List<Book> books)
+        public static void SearchByRating(string prompt, List<Book> books, User user)
         {
             Console.Write(prompt);
             string input = Console.ReadLine();
@@ -72,12 +72,13 @@ namespace MidTermLibrary
                 Console.Write("Invalid input. Please select a rating between 0 and 5 stars: ");
                 success = int.TryParse(Console.ReadLine(), out rating);
             }
-            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-10}{"Due Date",15}{"Rating",15}");
-            Console.WriteLine("=========================================================================================================");
+            Console.WriteLine($"\n{"ID#",-5}{"Title",-35}{"Author",-25}{"Status",-15}{"User",-15}{"Due Date",-15}{"",10}{"Rating",-5}");
+            Console.WriteLine("==============================================================================================================================");
             int matches = 0;
             for (int i = 0; i < books.Count; i++)
             {
-                if (books[i].AvgRating >= (double)rating - 0.5)
+                double bookRating = Book.GetAvgRating(books[i].TotalScore, books[i].NumberOfRatings);
+                if (rating >= (double)bookRating - 0.5)
                 {
                     matches++;
                     Console.WriteLine($"{(i + 1) + ":",-5}" + books[i].ToString());
@@ -89,7 +90,7 @@ namespace MidTermLibrary
             }
             else
             {
-                Library.CheckoutBook($"\nWhich book would you like to select? Enter book ID# or enter 0 to return to the Main Menu: ", books);
+                Library.CheckoutBook($"\nWhich book would you like to select? Enter book ID# or enter 0 to return to the Main Menu: ", books, user);
             }
         }
     }

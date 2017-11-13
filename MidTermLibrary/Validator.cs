@@ -36,7 +36,7 @@ namespace MidTermLibrary
             }
         }
 
-        public static bool GetUserChoice(string prompt, List<string> menuOptions, List<Book> books)
+        public static bool GetUserChoice(string prompt, List<string> menuOptions, List<Book> books, User user)
         {
             bool result = true;
             Console.Write(prompt);
@@ -52,20 +52,20 @@ namespace MidTermLibrary
             {
                 case 1:
                     Library.DisplayBooks(books);
-                    Library.CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books);
+                    Library.CheckoutBook($"\nWhich book would you like to select? (Enter book ID# (1 - {books.Count}) or enter 0 to return to the Main Menu): ", books, user);
                     break;
                 case 2:
-                    SearchOptions.SearchByAuthor("\nPlease enter the author's name (first, last or both): ", books);
+                    SearchOptions.SearchByAuthor("\nPlease enter the author's name (first, last or both): ", books, user);
                     break;
                 case 3:
-                    SearchOptions.SearchByKeyword("\nPlease enter a keyword to search by: ", books);
+                    SearchOptions.SearchByKeyword("\nPlease enter a keyword to search by: ", books, user);
                     break;
                 case 4:
-                    SearchOptions.SearchByRating("\nPlease enter a minimum rating: (0 to 5 stars): ", books);
+                    SearchOptions.SearchByRating("\nPlease enter a minimum rating: (0 to 5 stars): ", books, user);
                     break;
                 case 5:
-                    Library.DisplayCheckedOutBooks(books);
-                    Library.ReturnBook($"\nPlease enter the book ID# for your return or enter 0 to return to the Main Menu): ", books);
+                    Library.DisplayCheckedOutBooks(books, user);
+                    Library.ReturnBook($"\nPlease enter the book ID# for your return or enter 0 to return to the Main Menu): ", books, user);
                     break;
                 case 6:
                     Library.AddDonatedBook(books);
